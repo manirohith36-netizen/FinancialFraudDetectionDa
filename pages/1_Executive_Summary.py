@@ -4,6 +4,39 @@ import plotly.express as px
 
 st.set_page_config(layout="wide")
 
+# Theme
+st.markdown("""
+<style>
+
+.stApp{
+    background-color:#071A2E;
+}
+
+h1,h2,h3,h4{
+    color:#FFFFFF !important;
+}
+
+p,li,span{
+    color:#D6E4F0 !important;
+}
+
+section[data-testid="stSidebar"]{
+    background-color:#102A43;
+}
+
+[data-testid="stMetric"]{
+    background-color:#123B63;
+    border:1px solid #1F6AA5;
+    padding:18px;
+    border-radius:15px;
+}
+
+hr{
+    border-color:#1F6AA5;
+}
+
+</style>
+""", unsafe_allow_html=True)
 # Load Data
 df = pd.read_csv("Data/synthetic_fraud_dataset1.csv")
 
