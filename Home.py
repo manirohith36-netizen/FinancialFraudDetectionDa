@@ -10,7 +10,7 @@ st.set_page_config(
 # Load Data
 df = pd.read_csv("Data/synthetic_fraud_dataset1.csv")
 
-# KPI Values
+# KPIs
 total_transactions = len(df)
 fraud_cases = int(df["Fraud_Label"].sum())
 
@@ -19,65 +19,90 @@ fraud_rate = round(
     2
 )
 
-fraud_amount = df[df["Fraud_Label"] == 1][
-    "Transaction_Amount"
-].sum()
+fraud_amount = (
+    df[df["Fraud_Label"] == 1]["Transaction_Amount"]
+    .sum()
+)
 
-# Custom CSS
+# Theme
 st.markdown("""
 <style>
 
-.stApp {
-    background-color: #081420;
+.stApp{
+    background-color:#071A2E;
 }
 
-h1,h2,h3,p,li {
-    color:white;
+h1,h2,h3,h4{
+    color:#FFFFFF !important;
 }
 
-[data-testid="stMetric"] {
-    background: linear-gradient(135deg,#0f2d4a,#123b63);
-    padding:20px;
+p,li,span{
+    color:#D6E4F0 !important;
+}
+
+section[data-testid="stSidebar"]{
+    background-color:#102A43;
+}
+
+[data-testid="stMetric"]{
+    background-color:#123B63;
+    border:1px solid #1F6AA5;
+    padding:18px;
     border-radius:15px;
-    border:1px solid #1f5f8b;
+}
+
+hr{
+    border-color:#1F6AA5;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# Title
+# Header
 st.title("🚨 Financial Fraud Command Center")
 
-st.success(
-    "✅ System Status : ONLINE | Fraud Monitoring Active"
-)
+st.markdown("""
+<div style="
+background:#0F3A2D;
+padding:15px;
+border-radius:10px;
+color:white;
+font-weight:bold;
+margin-bottom:10px;">
+✅ System Status : ONLINE | Fraud Monitoring Active
+</div>
+""", unsafe_allow_html=True)
 
 # KPI Cards
 col1, col2, col3, col4 = st.columns(4)
 
-col1.metric(
-    "Transactions",
-    f"{total_transactions:,}"
-)
+with col1:
+    st.metric(
+        "Transactions",
+        f"{total_transactions:,}"
+    )
 
-col2.metric(
-    "Fraud Cases",
-    fraud_cases
-)
+with col2:
+    st.metric(
+        "Fraud Cases",
+        f"{fraud_cases:,}"
+    )
 
-col3.metric(
-    "Fraud Rate",
-    f"{fraud_rate}%"
-)
+with col3:
+    st.metric(
+        "Fraud Rate",
+        f"{fraud_rate}%"
+    )
 
-col4.metric(
-    "Fraud Amount",
-    f"${fraud_amount:,.0f}"
-)
+with col4:
+    st.metric(
+        "Fraud Amount",
+        f"${fraud_amount:,.0f}"
+    )
 
 st.divider()
 
-st.subheader("🎯 Dashboard Modules")
+st.subheader("📊 Dashboard Modules")
 
 st.markdown("""
 ✅ Executive Summary
@@ -93,6 +118,18 @@ st.markdown("""
 ✅ Machine Learning Prediction
 """)
 
+st.divider()
+
+st.subheader("🎯 Project Objective")
+
+st.write(
+"""
+This Financial Fraud Detection System analyzes transactional data,
+identifies fraud patterns, evaluates customer risk, and provides
+machine learning based fraud prediction through interactive dashboards.
+"""
+)
+
 st.info(
-    "Use the left sidebar to navigate between dashboards."
+    "Use the left sidebar to navigate through all dashboards."
 )
